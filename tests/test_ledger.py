@@ -3,7 +3,6 @@ from datetime import datetime
 from decimal import Decimal
 
 import freezegun
-import pytest
 
 from ledger.main import (
     BankAccount,
@@ -11,7 +10,6 @@ from ledger.main import (
     Transfer,
     Withdrawal
 )
-
 
 
 def test_ledger_create_ok(fake_transactions):

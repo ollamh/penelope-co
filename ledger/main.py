@@ -14,6 +14,9 @@ logger = getLogger(__name__)
 
 
 class TransactionList(list):
+    """
+    Class to store unchangeable content. You cannot delete, insert and pop content from it
+    """
 
     def __delitem__(self, key):
         pass
@@ -39,6 +42,9 @@ class BankAccountInsufficiendFundsError(Exception):
 
 @dataclass
 class BankAccount:
+    """
+    Basic class for storing Bank Account data
+    """
     number: str
     history: List['Transaction'] = field(default_factory=TransactionList)
     balance: Decimal = 0.0
@@ -64,6 +70,9 @@ class BankAccount:
 
 @dataclass
 class Transaction:
+    """
+    Basic class to store Transaction data
+    """
     from_account: BankAccount
     timestamp: datetime
     type: str
@@ -88,9 +97,11 @@ class LedgerError(Exception):
     pass
 
 
-
 @dataclass
 class Ledger:
+    """
+    Class encapsulates Ledger functionality
+    """
     _transactions: List[Transaction] = field(default_factory=TransactionList, repr=False)
     _bank_accounts: Dict[str, BankAccount] = field(default_factory=dict, repr=False)
 
@@ -140,5 +151,3 @@ class Ledger:
                 ledger.register_bank_account(transaction['to_account'])
             ledger.add_transaction(**transaction)
         return ledger
-
-
